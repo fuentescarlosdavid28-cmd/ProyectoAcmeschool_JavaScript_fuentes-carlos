@@ -11,9 +11,10 @@
     <a href="#/presentar" class="brand">Acme School</a>
     <nav class="menu" aria-label="Menu principal">
       <a href="#/presentar">Presentar examen</a>
-      <a href="#/usuarios">Usuarios</a>
-      <a href="#/examenes">Examenes</a>
-      <a href="#/login">Ingresar</a>
+      <a href="#/usuarios" data-private hidden>Usuarios</a>
+      <a href="#/examenes" data-private hidden>Examenes</a>
+      <a href="#/login" data-guest>Ingresar</a>
+      <button type="button" id="logout" class="menu-btn" data-private hidden>Salir</button>
     </nav>
   </header>
 
