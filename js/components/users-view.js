@@ -1,4 +1,4 @@
-import { getAll, saveAll, nextId } from '../services/storage.js';
+import { getAll, saveAll, nextId, onChange } from '../services/storage.js';
 import { getSession } from '../services/auth.js';
 import { escapeHtml } from '../utils/escape.js';
 
@@ -15,10 +15,10 @@ class UsersView extends HTMLElement {
           <form class="form card" novalidate>
             <h2 class="form-title">Nuevo usuario</h2>
             <input type="hidden" name="id">
-            <label>Número de identificación <input name="identificacion" inputmode="numeric" required></label>
+            <label>Numero de identificacion <input name="identificacion" inputmode="numeric" required></label>
             <label>Nombre completo <input name="nombre" required></label>
             <label>Correo <input type="email" name="email" required></label>
-            <label>Teléfono <input type="tel" name="telefono" required></label>
+            <label>Telefono <input type="tel" name="telefono" required></label>
             <label>
               Cargo
               <select name="cargo" required>
@@ -26,7 +26,7 @@ class UsersView extends HTMLElement {
                 ${CARGOS.map(c => `<option>${c}</option>`).join('')}
               </select>
             </label>
-            <label>Contraseña <input type="password" name="password" required></label>
+            <label>Contrasena <input type="password" name="password" required></label>
             <p class="error" role="alert" hidden></p>
             <div class="actions">
               <button type="submit" class="btn">Guardar</button>
@@ -37,10 +37,10 @@ class UsersView extends HTMLElement {
             <table class="table">
               <thead>
                 <tr>
-                  <th>Identificación</th>
+                  <th>Identificacion</th>
                   <th>Nombre</th>
                   <th>Correo</th>
-                  <th>Teléfono</th>
+                  <th>Telefono</th>
                   <th>Cargo</th>
                   <th>Acciones</th>
                 </tr>
@@ -56,7 +56,12 @@ class UsersView extends HTMLElement {
     this.form.addEventListener('submit', e => this.onSubmit(e));
     this.querySelector('[data-cancel]').addEventListener('click', () => this.resetForm());
     this.querySelector('tbody').addEventListener('click', e => this.onTableClick(e));
+    this.stopWatching = onChange('usuarios', () => this.renderTable());
     this.renderTable();
+  }
+
+  disconnectedCallback() {
+    this.stopWatching?.();
   }
 
   renderTable() {
@@ -121,9 +126,9 @@ class UsersView extends HTMLElement {
     const email = data.email.toLowerCase();
 
     if (FIELDS.some(key => key !== 'id' && !data[key])) return 'Completa todos los campos.';
-    if (!/^\S+@\S+\.\S+$/.test(data.email)) return 'Escribe un correo válido.';
+    if (!/^\S+@\S+\.\S+$/.test(data.email)) return 'Escribe un correo valido.';
     if (users.some(u => u.id !== id && u.email.toLowerCase() === email)) return 'Ya existe un usuario con ese correo.';
-    if (users.some(u => u.id !== id && u.identificacion === data.identificacion)) return 'Ya existe un usuario con esa identificación.';
+    if (users.some(u => u.id !== id && u.identificacion === data.identificacion)) return 'Ya existe un usuario con esa identificacion.';
     return '';
   }
 
@@ -147,11 +152,12 @@ class UsersView extends HTMLElement {
 
     this.resetForm();
     this.renderTable();
+    this.form.elements.identificacion.focus();
   }
 
   deleteUser(id) {
     if (getSession()?.id === id) {
-      this.showError('No puedes eliminar tu propio usuario mientras tienes la sesión abierta.');
+      this.showError('No puedes eliminar tu propio usuario mientras tienes la sesion abierta.');
       return;
     }
     if (!confirm('¿Seguro que quieres eliminar este usuario?')) return;

@@ -5,14 +5,14 @@ class LoginForm extends HTMLElement {
     this.innerHTML = `
       <section class="view login">
         <h1>Ingresar</h1>
-        <p class="muted">Accede con tu correo y contraseña.</p>
+        <p class="muted">Accede con tu correo y contrasena.</p>
         <form class="form" novalidate>
           <label>
             Correo
             <input type="email" name="email" autocomplete="username" required>
           </label>
           <label>
-            Contraseña
+            Contrasena
             <input type="password" name="password" autocomplete="current-password" required>
           </label>
           <p class="error" role="alert" hidden></p>
@@ -30,12 +30,12 @@ class LoginForm extends HTMLElement {
     const password = form.password.value;
 
     if (!email || !password) {
-      this.showError('Completa el correo y la contraseña.');
+      this.showError('Completa el correo y la contrasena.');
       return;
     }
 
     if (!login(email, password)) {
-      this.showError('Correo o contraseña incorrectos.');
+      this.showError('Correo o contrasena incorrectos.');
       return;
     }
 
