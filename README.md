@@ -8,6 +8,7 @@ Plataforma web para crear y presentar examenes de la escuela Acme. Esta hecha co
 - **Gestion de usuarios (privado):** tabla, formulario y botones para crear, editar y eliminar usuarios. Datos: numero de identificacion, nombre completo, email, telefono, cargo (Administrativo o Docente) y contrasena.
 - **Gestion de examenes (privado):** tabla, formulario y botones para crear, editar y eliminar examenes. Datos: codigo, titulo, tiempo en minutos, porcentaje de aprobacion y descripcion.
   - Cada examen tiene preguntas. Cada pregunta tiene dos respuestas y solo una puede estar marcada como correcta.
+- **Resultados (privado):** tabla con los examenes presentados: fecha, estudiante, examen, aciertos, nota y si aprobo. Se puede filtrar por examen y buscar por nombre o identificacion, y muestra un resumen con aprobados, reprobados y promedio.
 - **Resolucion de examenes (publico):**
   1. Lista de examenes disponibles con titulo, tiempo y porcentaje de aprobacion.
   2. El estudiante escribe su numero de identificacion y su nombre completo.
@@ -37,7 +38,7 @@ La primera vez que se abre la app, si no hay usuarios guardados, se crea un admi
 ```
 index.html                  pagina principal y menu
 css/
-  styles.css                colores, estilos y animaciones
+  styles.css                colores y estilos
 js/
   main.js                   rutas por hash y proteccion de vistas privadas
   components/
@@ -48,11 +49,13 @@ js/
     exam-portal.js          <exam-portal> modulo publico
     exam-runner.js          <exam-runner> vista del examen
     exam-timer.js           <exam-timer> reloj del examen
+    results-view.js         <results-view> resultados de los estudiantes
   services/
     storage.js              leer y guardar JSON en localStorage
     seed.js                 crea el admin inicial
     auth.js                 login, logout y sesion
     results.js              calificar y guardar resultados
+    progress.js             guarda el examen en curso (sessionStorage)
   utils/
     escape.js               escapa texto antes de mostrarlo en HTML
 ```
@@ -65,6 +68,7 @@ js/
 | `#/login` | Ingresar | Solo sin sesion |
 | `#/usuarios` | Gestion de usuarios | Requiere sesion |
 | `#/examenes` | Gestion de examenes | Requiere sesion |
+| `#/resultados` | Resultados | Requiere sesion |
 
 ## Datos en localStorage
 
@@ -132,6 +136,6 @@ Todas las claves usan el prefijo `acme_`.
 ## Tecnologias
 
 - HTML5
-- CSS3 (variables, grid, flexbox, animaciones y media queries)
+- CSS3 (variables, grid, flexbox y media queries)
 - JavaScript (modulos ES y Web Components con `customElements`)
 - localStorage

@@ -5,6 +5,7 @@ import './components/login-form.js';
 import './components/users-view.js';
 import './components/exams-view.js';
 import './components/exam-portal.js';
+import './components/results-view.js';
 
 seedAdmin();
 
@@ -12,7 +13,8 @@ const routes = {
   '#/presentar': { view: () => '<exam-portal></exam-portal>' },
   '#/login': { view: () => '<login-form></login-form>', guest: true },
   '#/usuarios': { view: () => '<users-view></users-view>', private: true },
-  '#/examenes': { view: () => '<exams-view></exams-view>', private: true }
+  '#/examenes': { view: () => '<exams-view></exams-view>', private: true },
+  '#/resultados': { view: () => '<results-view></results-view>', private: true }
 };
 
 const defaultRoute = '#/presentar';

@@ -332,6 +332,47 @@ body {
   cursor: pointer;
 }
 
+/* ---------- Resultados ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.filters input,
+.filters select {
+  font: inherit;
+  min-width: 220px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.summary {
+  margin: 16px 0 8px;
+  font-size: 0.9rem;
+}
+
+.status-ok {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.status-fail {
+  color: var(--danger);
+  font-weight: 600;
+}
+
 /* ---------- Portal de examenes ---------- */
 .exam-grid {
   display: grid;
