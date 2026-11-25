@@ -3,7 +3,7 @@ import { getSession } from '../services/auth.js';
 import { escapeHtml } from '../utils/escape.js';
 
 const CARGOS = ['Administrativo', 'Docente'];
-const FIELDS = ['id', 'identificacion', 'nombre', 'email', 'telefono', 'cargo', 'password'];
+const FIELDS = ['id', 'identificacion', 'nombre', 'email', 'telefono', 'cargo', 'contraseña'];
 
 class UsersView extends HTMLElement {
   connectedCallback() {
